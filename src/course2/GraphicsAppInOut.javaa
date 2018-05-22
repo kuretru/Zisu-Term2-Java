@@ -1,0 +1,39 @@
+package course2;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class GraphicsAppInOut {
+	public static void main(String args[]) {
+		ApplctFrame MyFrame = new ApplctFrame();
+	}
+}
+
+class ApplctFrame extends Frame implements ActionListener {
+	Label prompt;
+	TextField input;
+	Label output;
+
+	ApplctFrame() {
+		super("图形界面的Java Application程序");
+		setLayout(new FlowLayout());
+		prompt = new Label("Enter a character please:");
+		input = new TextField(4);
+		output = new Label("              ");
+		add(prompt);
+		add(input);
+		add(output);
+		input.addActionListener(this);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent we) {
+				System.exit(0);
+			}
+		});
+		setSize(500, 100);
+		setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		output.setText("character" + input.getText());
+	}
+}

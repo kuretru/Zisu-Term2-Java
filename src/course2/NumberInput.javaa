@@ -1,0 +1,36 @@
+package course2;
+
+import java.applet.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class NumberInput extends Applet implements ActionListener {
+
+	Label prompt1 = new Label("Please input int:");
+	Label prompt2 = new Label("Please input float:");;
+	TextField input_int = new TextField(6);
+	TextField input_double = new TextField(6);
+	TextField output = new TextField(35);
+	Button addBtn = new Button("add");
+	int getInt;
+	double getDouble;
+
+	public void init() {
+		add(prompt1);
+		add(input_int);
+		add(prompt2);
+		add(input_double);
+		add(addBtn);
+		add(output);
+		addBtn.addActionListener(this);
+		output.setEditable(false);
+	}
+
+	public void actionPerformed(ActionEvent ae) {
+		if (!(ae.getSource().equals(addBtn)))
+			return;
+		getInt = Integer.parseInt(input_int.getText());
+		getDouble = Double.valueOf(input_double.getText()).doubleValue();
+		output.setText(getInt + "+" + getDouble + "=" + (getInt + getDouble));
+	}
+}

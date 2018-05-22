@@ -1,0 +1,117 @@
+﻿package course2;
+
+//UseCard.java
+//卡号、密码、余额
+class card {
+	public long cardNumber; // 卡号
+	public int password; // 密码
+	public String connectNumber; // 连接卡号
+	public boolean connected; // 连接标志
+
+	public card() {
+	}
+
+	public card(long acardNumber, int apassword, String aconnectNumber, boolean aconnected) // 构造函数
+	{
+		cardNumber = acardNumber; // 卡号
+		password = apassword; // 密码
+		connectNumber = aconnectNumber; // 连接卡号
+		connected = aconnected; // 连接标志
+	}
+
+	public void setcar(long acardNumber, int apassword) {
+		password = apassword;
+		cardNumber = acardNumber; // 连接卡号
+	}
+
+	public boolean getcar(long acardNumber, int apassword) {
+		if (cardNumber == acardNumber && password == apassword)
+			return true;
+		else
+			return false;
+	}
+
+	public void show(long acardNumber, int apassword, String aconnectNumber, boolean aconnected) {
+		if (aconnected) {
+			String s = "卡已接通";
+			System.out.println("卡接入号" + aconnectNumber + "卡号:" + acardNumber + "卡密码:" + apassword + "状态" + s);
+		} else {
+			String s = "卡未接通";
+			System.out.println("接入号" + aconnectNumber + "卡号:" + acardNumber + "密码:" + apassword + "状态" + s);
+		}
+	}
+
+}
+
+class soldcard extends card {
+	private double price; // 价格
+	private int reachday; // 到达日期
+	private int reachyear; // 到达年份
+	private String reachmonth; // 到达月份
+	private String clientname; // 客户姓名
+	private String cartype; // 汽车类型
+	private String selldate; // 销售日期
+
+	public soldcard() // 默认的构造函数
+	{
+	}
+
+	public soldcard(double aprice, int areachday, int areachyear, String areachmonth, String aclientname, // 客户姓名
+			String acartype, String aselldate) // 另一个构造函数
+	{
+		super(); // 调用父类的构造函数
+		price = aprice; // 价格
+		reachday = areachday; // 到达日期
+		reachyear = areachyear; // 到达年份
+		reachmonth = areachmonth; // 到达月份
+		clientname = aclientname; // 客户姓名
+		cartype = acartype; // 汽车类型
+		selldate = aselldate; // 销售日期
+
+	}
+
+	public void setcar(long acardNumber, int apassword, String acartype, double aprice, String aclientname,
+			String aselldate) // 重构子类的设置方法
+	{
+		super.setcar(acardNumber, apassword); // 继承父类的设置并且重构
+		price = aprice; // 价格
+		clientname = aclientname; // 客户姓名
+		cartype = acartype; // 汽车类型
+		selldate = aselldate; // 销售日期
+	}
+
+	double getprice(boolean aconnected) // 只有合法用户才涉及价格
+	{
+		if (aconnected)
+			return price;
+		else
+			return -1;
+	}
+
+	public void show(long acardNumber, int apassword, String aconnectNumber, boolean aconnected, String acartype,
+			double aprice, String aclientname, String aselldate) {
+		super.show(acardNumber, apassword, aconnectNumber, aconnected);
+		System.out.println("汽车型号" + acartype + "价格" + aprice + "客户姓名" + aclientname + "销售日期" + aselldate);
+
+	}
+}
+
+public class UseCard {
+	public static void main(String[] args) {
+		card PhCa1 = new card();
+		PhCa1.setcar(21282828, 1234);
+		boolean aConnec0 = PhCa1.getcar(21282828, 1234);
+		PhCa1.show(21282828, 1234, "连接", aConnec0);
+		boolean aConnec1 = false;
+		PhCa1.show(21282828, 1234, "连接", aConnec1);
+
+		soldcard soldcard1; // 汽车销售的实例1
+		soldcard soldcard2; // 汽车销售的实例2
+		soldcard1 = new soldcard();
+		double aprice = soldcard1.getprice(aConnec0);
+		soldcard1.show(21282828, 1234, "已销售", aConnec0, "重型车EQ1300", 460000, "三峡指挥部", "2002年8月");
+		soldcard2 = new soldcard();
+		soldcard2.show(21282838, 2341, "已销售", aConnec0, "轻型车EQ1064", 150000, "张文海", "2003年3月");
+		soldcard1.show(21282848, 3412, "已销售", aConnec0, "中型车EQ1118", 260000, "裕龙公司", "2002年6月");
+	}
+}
